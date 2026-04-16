@@ -1,13 +1,13 @@
-from fastapi import FastAPI
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+from schemas.activation import ActivationIn
 
 app = FastAPI()
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+@app.get("/assets")
+async def get_assets(filters: Annotated[ActivationIn, Query()]) -> dict[str, str | int]:
+    """Get assets."""
+    return {"date": filters.date.isoformat(), "volume": filters.volume}
