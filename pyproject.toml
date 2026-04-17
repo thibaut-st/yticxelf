@@ -5,6 +5,7 @@ requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.136.0",
     "pydantic>=2.13.1",
+    "sqlalchemy>=2.0.44",
     "uvicorn>=0.44.0",
 ]
 
@@ -21,6 +22,20 @@ dev = [
 
 [tool.coverage.run]
 branch = true
+omit = [
+    "data/*",
+    "data/**/*",
+    "tests/*",
+    "tests/**/*",
+]
+
+[tool.coverage.report]
+omit = [
+    "data/*",
+    "data/**/*",
+    "tests/*",
+    "tests/**/*",
+]
 
 # == MYPY ==
 
@@ -43,6 +58,7 @@ ignore = [
     "PT009",
     "PT027",
     "TC001",
+    "TC002",
     "TC003",
 ]
 fixable = ["ALL"]

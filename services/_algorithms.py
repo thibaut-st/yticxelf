@@ -1,9 +1,9 @@
 from itertools import combinations
 
-from data import AssetData
+from models.asset import AssetModel
 
 
-def _brute_force(activation_volume: int, available_assets: list[AssetData]) -> list[AssetData]:
+def _brute_force(activation_volume: int, available_assets: list[AssetModel]) -> list[AssetModel]:
     """
     Brute force algorithm to find the optimal combination of assets.
 
@@ -20,8 +20,8 @@ def _brute_force(activation_volume: int, available_assets: list[AssetData]) -> l
     for iteration in range(1, len(available_assets) + 1):
         asset_combination = combinations(available_assets, iteration)
         for asset_subset in asset_combination:
-            combined_volume: int = sum(asset["volume"] for asset in asset_subset)
-            combined_cost: float = sum(asset["activation_cost"] for asset in asset_subset)
+            combined_volume: int = sum(asset.volume for asset in asset_subset)
+            combined_cost: float = sum(asset.activation_cost for asset in asset_subset)
 
             if combined_volume >= activation_volume and combined_cost < final_cost:
                 selected_assets = list(asset_subset)  # update the selected assets to the current combination
