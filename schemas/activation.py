@@ -1,6 +1,6 @@
 from datetime import date
 
-from pydantic import BaseModel
+from pydantic import BaseModel, PositiveInt
 
 
 class ActivationIn(BaseModel):
@@ -14,4 +14,4 @@ class ActivationIn(BaseModel):
     """
 
     date: date
-    volume: int
+    volume: PositiveInt

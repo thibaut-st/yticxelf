@@ -1,14 +1,32 @@
 # Test your FastAPI endpoints
 
-GET http://127.0.0.1:8000/
+POST http://127.0.0.1:8000/activation-request
 Accept: application/json
+Content-Type: application/json
+
+{
+  "date": "2026-04-20",
+  "volume": 100
+}
 
 ###
 
-GET http://127.0.0.1:8000/hello/User
+POST http://127.0.0.1:8000/activation-request
 Accept: application/json
+Content-Type: application/json
+
+{
+  "date": "2026-04-20",
+  "volume": 9999
+}
 
 ###
 
-GET http://127.0.0.1:8000/assets?date=2026-04-20&volume=100
+POST http://127.0.0.1:8000/activation-request
 Accept: application/json
+Content-Type: application/json
+
+{
+  "date": "2026-04-20",
+  "volume": 0
+}

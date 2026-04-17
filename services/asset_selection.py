@@ -34,17 +34,21 @@ def optimize_asset_selection(activation: ActivationIn, algorithm: Literal["bf"] 
     :return: The optimized asset selection list.
     """
     date = activation.date
+    requested_volume = activation.volume
 
     assets = deepcopy(ASSET_DATA)
     available_assets = [asset for asset in assets if date in asset["availability"]]
 
     total_volume_available = sum(asset["volume"] for asset in available_assets)
-    if total_volume_available < activation.volume:
-        _logger.warning("Not enough assets available for the requested volume. Returning all available assets.")
-        selected_assets = available_assets
-    else:
-        selected_assets = _algorithm_map[algorithm](activation.volume, available_assets)
+    if total_volume_available < requested_volume:
+        error_message = (
+            f"Not enough assets available for the requested volume. "
+            f"Available: {total_volume_available}, Requested: {requested_volume}"
+        )
+        _logger.error(error_message)
+        raise ValueError(error_message)
 
+    selected_assets = _algorithm_map[algorithm](requested_volume, available_assets)
     total_volume_selected = sum(asset["volume"] for asset in selected_assets)
     total_cost_selected = sum(asset["activation_cost"] for asset in selected_assets)
 

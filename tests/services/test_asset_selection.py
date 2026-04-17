@@ -18,15 +18,19 @@ class TestAssetSelectionBruteForce(TestCase):
             date=date.fromisoformat("2026-04-20"),
             volume=100,
         )
-        expected_result = [
-            {
-                "code": "A-007",
-                "name": "Asset 7",
-                "activation_cost": 210.0,
-                "availability": [date(2026, 4, 20), date(2026, 4, 21), date(2026, 4, 22)],
-                "volume": 120,
-            }
-        ]
+        expected_result = {
+            "selected_assets": [
+                {
+                    "code": "A-007",
+                    "name": "Asset 7",
+                    "activation_cost": 210.0,
+                    "availability": [date(2026, 4, 20), date(2026, 4, 21), date(2026, 4, 22)],
+                    "volume": 120,
+                }
+            ],
+            "total_cost_selected": 210.0,
+            "total_volume_selected": 120,
+        }
         # ACT
         result = optimize_asset_selection(activation)
         # ASSERT
@@ -39,8 +43,11 @@ class TestAssetSelectionBruteForce(TestCase):
             date=date.fromisoformat("2026-04-20"),
             volume=9999,
         )
-        expected_result = list(filter(lambda asset: activation.date in asset["availability"], ASSET_DUMMY_DATA))
         # ACT
-        result = optimize_asset_selection(activation)
+        with self.assertRaises(ValueError) as context_manager:
+            optimize_asset_selection(activation)
         # ASSERT
-        self.assertEqual(expected_result, result)
+        self.assertEqual(
+            "Not enough assets available for the requested volume. Available: 355, Requested: 9999",
+            str(context_manager.exception),
+        )
