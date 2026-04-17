@@ -9,3 +9,6 @@ GET http://127.0.0.1:8000/hello/User
 Accept: application/json
 
 ###
+
+GET http://127.0.0.1:8000/assets?date=2026-04-20&volume=100
+Accept: application/json

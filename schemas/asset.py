@@ -34,3 +34,5 @@ class AssetListOut(BaseModel):
     """
 
     assets: list[Asset]
+    total_volume: int
+    total_cost: float

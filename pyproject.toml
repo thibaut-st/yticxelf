@@ -16,6 +16,11 @@ dev = [
     "ruff>=0.15.10",
 ]
 
+# == COVERAGE ==
+
+[tool.coverage.run]
+branch = true
+
 # == MYPY ==
 
 [tool.mypy]

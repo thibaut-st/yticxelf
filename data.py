@@ -1,6 +1,18 @@
 from datetime import date
+from typing import TypedDict
 
-ASSET_DUMMY_DATA: list[dict[str, str | int | float | list[date]]] = [
+
+class AssetData(TypedDict):
+    """Asset data type."""
+
+    code: str
+    name: str
+    activation_cost: float
+    availability: list[date]
+    volume: int
+
+
+ASSET_DATA: list[AssetData] = [
     {
         "code": "A-001",
         "name": "Asset 1",
