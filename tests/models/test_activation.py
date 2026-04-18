@@ -3,7 +3,7 @@ from uuid import UUID
 
 from sqlalchemy.orm import Session
 
-from models.activation import ActivationModel, ActivationRepository
+from models import ActivationModel, ActivationRepository
 from tests.models.base import RepositoryTestCase
 
 

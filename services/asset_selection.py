@@ -1,11 +1,10 @@
 import logging
-from typing import Literal, TypedDict
+from typing import TypedDict
 
-from models.activation import ActivationRepository
-from models.activation_asset_history import ActivationAssetHistoryRepository
-from models.asset import AssetModel, AssetRepository
+from core.config import settings
+from models import ActivationAssetHistoryRepository, ActivationRepository, AssetModel, AssetRepository
 from schemas.activation import ActivationIn
-from services._algorithms import _algorithm_map
+from services._algorithms import algorithm_map
 
 _logger = logging.getLogger(__name__)
 
@@ -26,12 +25,11 @@ class AssetSelection(TypedDict):
     total_cost_selected: float
 
 
-def optimize_asset_selection(activation: ActivationIn, algorithm: Literal["bf"] = "bf") -> AssetSelection:
+def optimize_asset_selection(activation: ActivationIn) -> AssetSelection:
     """
     Given an activation, optimize the asset selection.
 
     :param activation: The activation request from the TSO.
-    :param algorithm: The algorithm to use for optimization (default: brute force).
     :return: The optimized asset selection list.
     :raises ValueError: If there are not enough assets available for the requested volume.
     """
@@ -46,7 +44,14 @@ def optimize_asset_selection(activation: ActivationIn, algorithm: Literal["bf"] 
     __check_total_volume_available(requested_volume, available_assets)
 
     # Call the algorithm that will optimize the asset selection
-    selected_assets = _algorithm_map[algorithm](requested_volume, available_assets)
+    optimization_algorithm = settings.optimization_algorithm
+    _logger.info(
+        "Optimizing asset selection for requested volume %s, with algorithm: %s",
+        requested_volume,
+        optimization_algorithm,
+    )
+    selected_assets = algorithm_map[optimization_algorithm](requested_volume, available_assets)
+    _logger.info("Asset selection optimized: %s", [selected_asset.code for selected_asset in selected_assets])
     total_volume_selected = sum(asset.volume for asset in selected_assets)
     total_cost_selected = sum(asset.activation_cost for asset in selected_assets)
 
