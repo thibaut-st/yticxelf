@@ -3,9 +3,13 @@ from datetime import date
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from models.activation import ActivationRepository
-from models.activation_asset_history import ActivationAssetHistoryModel, ActivationAssetHistoryRepository
-from models.asset import AssetModel, AssetRepository
+from models import (
+    ActivationAssetHistoryModel,
+    ActivationAssetHistoryRepository,
+    ActivationRepository,
+    AssetModel,
+    AssetRepository,
+)
 from tests.models.base import RepositoryTestCase
 
 

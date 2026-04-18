@@ -2,7 +2,7 @@ from datetime import date
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
-from models.asset import AssetModel
+from models import AssetModel
 from schemas.activation import ActivationIn
 from services.asset_selection import optimize_asset_selection
 from tests.dummy_data import ASSET_DUMMY_MODELS

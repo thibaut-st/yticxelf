@@ -1,7 +1,8 @@
 import json
+import uuid
 from pathlib import Path
 
-from models.asset import AssetModel
+from models import AssetModel
 
 __SAMPLE_ASSETS_PATH = Path(__file__).resolve().parent.parent / "data" / "sample_assets.json"
 
@@ -11,6 +12,7 @@ ASSET_DUMMY_MODELS = []
 
 for asset in __ASSET_DUMMY_DATA:
     asset_model = AssetModel(
+        id=uuid.uuid4(),
         code=asset["code"],
         name=asset["name"],
         activation_cost=asset["activation_cost"],

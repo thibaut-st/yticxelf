@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 from data.db import DATABASE_URL, Base, make_engine, make_session_factory
-from models.asset import AssetModel
+from models import AssetModel
 
 SAMPLE_ASSETS_PATH = Path(__file__).resolve().parent / "sample_assets.json"
 

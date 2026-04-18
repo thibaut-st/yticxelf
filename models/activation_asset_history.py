@@ -7,8 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from data.db import Base, SessionLocal
 
 if TYPE_CHECKING:
-    from models.activation import ActivationModel
-    from models.asset import AssetModel
+    from models import ActivationModel, AssetModel
 
 
 class ActivationAssetHistoryModel(Base):

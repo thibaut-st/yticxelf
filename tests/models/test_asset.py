@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from models.asset import AssetModel, AssetRepository
+from models import AssetModel, AssetRepository
 from tests.models.base import RepositoryTestCase
 
 

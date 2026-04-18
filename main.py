@@ -1,11 +1,22 @@
+import logging
 from http import HTTPStatus
 
 from fastapi import FastAPI, HTTPException
 
+from core.config import settings
 from schemas.activation import ActivationIn
 from schemas.asset import Asset, AssetListOut
 from services.asset_selection import optimize_asset_selection
 
+# Logging configuration
+# Display INFO level logs and above in the console
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s %(message)s",
+)
+
+# Load the settings at startup, allow to check the imported values match their type
+app_settings = settings
 app = FastAPI(
     root_path="/api/v1",
     title="Flexcity Backend Technical Test",
