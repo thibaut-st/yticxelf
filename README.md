@@ -40,6 +40,14 @@ Expected behavior:
    all available assets on power shortage.
 2. The date is a simple date and not a datetime.
 3. The date can be in the future or past.
+4. Assets' codes are unique.
+
+#### Trade-offs
+
+1. The dates in the Asset's availability model are saved as simple JSON lists.
+2. Since the dates are simple JSON lists, 
+the service needs to sort the list manually instead of using a database filter.
+3. No migrations, the database is created with sample data by a helper.
 
 ## Technical context
 
@@ -60,26 +68,35 @@ uv sync
 
 ## Run locally
 
-Start the development server:
+To get a working local database, run:
+
+```bash
+uv run python -m data.load_sample_assets
+```
+
+This debug helper deletes `data/flexcity.db` if it exists, recreates the schema from the SQLAlchemy models, 
+and loads the sample assets from `data/sample_assets.json`.
+
+Then start the development server:
 
 ```bash
 uv run uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-The API is available at `http://127.0.0.1:8000`.
+The API is available at `http://127.0.0.1:8000/api/v1/`.
 
 ## API docs
 
 Once the server is running, you can access:
 
-- Swagger UI: `http://127.0.0.1:8000/docs`
-- OpenAPI schema: `http://127.0.0.1:8000/openapi.json`
-- ReDoc: `http://127.0.0.1:8000/redoc`
+- Swagger UI: `http://127.0.0.1:8000/api/v1/docs`
+- OpenAPI schema: `http://127.0.0.1:8000/api/v1/openapi.json`
+- ReDoc: `http://127.0.0.1:8000/api/v1/redoc`
 
 ## Example request
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/activation-request" \
+curl -X POST "http://127.0.0.1:8000/api/v1/request/activation" \
   -H "Content-Type: application/json" \
   -d "{\"date\":\"2026-04-20\",\"volume\":100}"
 ```
@@ -118,16 +135,24 @@ Example capacity-shortage response:
 
 Automated and manual checks currently used in this repository:
 
-- `uv run python -m unittest` (unit tests)
+- `uv run python -m unittest` (run the unit tests)
+- `uv run coverage run -m unittest` (run the unit tests with coverage)
+- `uv run coverage report -m` (show the coverage report; `data/` and `tests/` are excluded)
 - `uv run mypy .` (type checking)
 - `uv run ruff check .` (code style linting)
 - Requests in `test_main.http`
 
 ## Current behavior
 
-- The API currently exposes `POST /activation-request`.
-- The request body contains `date` and `volume`.
-- `volume` must be a positive integer.
+- The API currently exposes `POST /request/activation`.
+- The request body contains `date` and `volume`, and `volume` must be a positive integer.
+- The endpoint reads assets from the SQLite database in `data/flexcity.db`.
+- The helper `uv run python -m data.load_sample_assets` resets that database and loads the sample assets from
+  `data/sample_assets.json`.
+- Asset availability is stored as JSON lists of ISO date strings and filtered in Python for the requested date.
+- Asset selection uses a brute-force combination search to minimize total activation cost while covering the requested
+  volume.
+- On success, the API returns the selected assets plus `total_volume` and `total_cost`.
+- The current implementation also persists activation and activation-history rows in SQLite.
 - If the requested volume cannot be covered by available assets, the API returns `409 Conflict` with a detailed error
   message.
-- The API returns a JSON response with the list of assets to activate.

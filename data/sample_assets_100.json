@@ -1,0 +1,1102 @@
+[
+  {
+    "code": "A-001",
+    "name": "Asset 1",
+    "activation_cost": 85.25,
+    "availability": [
+      "2026-04-20",
+      "2026-04-23",
+      "2026-04-25"
+    ],
+    "volume": 37
+  },
+  {
+    "code": "A-002",
+    "name": "Asset 2",
+    "activation_cost": 98.5,
+    "availability": [
+      "2026-04-21",
+      "2026-04-23",
+      "2026-04-27"
+    ],
+    "volume": 44
+  },
+  {
+    "code": "A-003",
+    "name": "Asset 3",
+    "activation_cost": 111.75,
+    "availability": [
+      "2026-04-22",
+      "2026-04-25",
+      "2026-04-26"
+    ],
+    "volume": 51
+  },
+  {
+    "code": "A-004",
+    "name": "Asset 4",
+    "activation_cost": 124.0,
+    "availability": [
+      "2026-04-23",
+      "2026-04-25",
+      "2026-04-28"
+    ],
+    "volume": 58
+  },
+  {
+    "code": "A-005",
+    "name": "Asset 5",
+    "activation_cost": 137.25,
+    "availability": [
+      "2026-04-24",
+      "2026-04-27",
+      "2026-04-30"
+    ],
+    "volume": 65
+  },
+  {
+    "code": "A-006",
+    "name": "Asset 6",
+    "activation_cost": 150.5,
+    "availability": [
+      "2026-04-25",
+      "2026-04-27",
+      "2026-04-29"
+    ],
+    "volume": 72
+  },
+  {
+    "code": "A-007",
+    "name": "Asset 7",
+    "activation_cost": 163.75,
+    "availability": [
+      "2026-04-26",
+      "2026-04-29",
+      "2026-05-01"
+    ],
+    "volume": 79
+  },
+  {
+    "code": "A-008",
+    "name": "Asset 8",
+    "activation_cost": 176.0,
+    "availability": [
+      "2026-04-27",
+      "2026-04-29",
+      "2026-05-03"
+    ],
+    "volume": 86
+  },
+  {
+    "code": "A-009",
+    "name": "Asset 9",
+    "activation_cost": 189.25,
+    "availability": [
+      "2026-04-28",
+      "2026-05-01",
+      "2026-05-02"
+    ],
+    "volume": 93
+  },
+  {
+    "code": "A-010",
+    "name": "Asset 10",
+    "activation_cost": 202.5,
+    "availability": [
+      "2026-04-29",
+      "2026-05-01",
+      "2026-05-04"
+    ],
+    "volume": 100
+  },
+  {
+    "code": "A-011",
+    "name": "Asset 11",
+    "activation_cost": 215.75,
+    "availability": [
+      "2026-04-30",
+      "2026-05-03",
+      "2026-05-06"
+    ],
+    "volume": 107
+  },
+  {
+    "code": "A-012",
+    "name": "Asset 12",
+    "activation_cost": 228.0,
+    "availability": [
+      "2026-05-01",
+      "2026-05-03",
+      "2026-05-05"
+    ],
+    "volume": 114
+  },
+  {
+    "code": "A-013",
+    "name": "Asset 13",
+    "activation_cost": 76.25,
+    "availability": [
+      "2026-05-02",
+      "2026-05-05",
+      "2026-05-07"
+    ],
+    "volume": 121
+  },
+  {
+    "code": "A-014",
+    "name": "Asset 14",
+    "activation_cost": 89.5,
+    "availability": [
+      "2026-05-03",
+      "2026-05-05",
+      "2026-05-09"
+    ],
+    "volume": 128
+  },
+  {
+    "code": "A-015",
+    "name": "Asset 15",
+    "activation_cost": 102.75,
+    "availability": [
+      "2026-05-04",
+      "2026-05-07",
+      "2026-05-08"
+    ],
+    "volume": 135
+  },
+  {
+    "code": "A-016",
+    "name": "Asset 16",
+    "activation_cost": 115.0,
+    "availability": [
+      "2026-05-05",
+      "2026-05-07",
+      "2026-05-10"
+    ],
+    "volume": 142
+  },
+  {
+    "code": "A-017",
+    "name": "Asset 17",
+    "activation_cost": 128.25,
+    "availability": [
+      "2026-05-06",
+      "2026-05-09",
+      "2026-05-12"
+    ],
+    "volume": 34
+  },
+  {
+    "code": "A-018",
+    "name": "Asset 18",
+    "activation_cost": 141.5,
+    "availability": [
+      "2026-05-07",
+      "2026-05-09",
+      "2026-05-11"
+    ],
+    "volume": 41
+  },
+  {
+    "code": "A-019",
+    "name": "Asset 19",
+    "activation_cost": 154.75,
+    "availability": [
+      "2026-04-20",
+      "2026-04-23",
+      "2026-04-25"
+    ],
+    "volume": 48
+  },
+  {
+    "code": "A-020",
+    "name": "Asset 20",
+    "activation_cost": 167.0,
+    "availability": [
+      "2026-04-21",
+      "2026-04-23",
+      "2026-04-27"
+    ],
+    "volume": 55
+  },
+  {
+    "code": "A-021",
+    "name": "Asset 21",
+    "activation_cost": 180.25,
+    "availability": [
+      "2026-04-22",
+      "2026-04-25",
+      "2026-04-26"
+    ],
+    "volume": 62
+  },
+  {
+    "code": "A-022",
+    "name": "Asset 22",
+    "activation_cost": 193.5,
+    "availability": [
+      "2026-04-23",
+      "2026-04-25",
+      "2026-04-28"
+    ],
+    "volume": 69
+  },
+  {
+    "code": "A-023",
+    "name": "Asset 23",
+    "activation_cost": 206.75,
+    "availability": [
+      "2026-04-24",
+      "2026-04-27",
+      "2026-04-30"
+    ],
+    "volume": 76
+  },
+  {
+    "code": "A-024",
+    "name": "Asset 24",
+    "activation_cost": 219.0,
+    "availability": [
+      "2026-04-25",
+      "2026-04-27",
+      "2026-04-29"
+    ],
+    "volume": 83
+  },
+  {
+    "code": "A-025",
+    "name": "Asset 25",
+    "activation_cost": 232.25,
+    "availability": [
+      "2026-04-26",
+      "2026-04-29",
+      "2026-05-01"
+    ],
+    "volume": 90
+  },
+  {
+    "code": "A-026",
+    "name": "Asset 26",
+    "activation_cost": 80.5,
+    "availability": [
+      "2026-04-27",
+      "2026-04-29",
+      "2026-05-03"
+    ],
+    "volume": 97
+  },
+  {
+    "code": "A-027",
+    "name": "Asset 27",
+    "activation_cost": 93.75,
+    "availability": [
+      "2026-04-28",
+      "2026-05-01",
+      "2026-05-02"
+    ],
+    "volume": 104
+  },
+  {
+    "code": "A-028",
+    "name": "Asset 28",
+    "activation_cost": 106.0,
+    "availability": [
+      "2026-04-29",
+      "2026-05-01",
+      "2026-05-04"
+    ],
+    "volume": 111
+  },
+  {
+    "code": "A-029",
+    "name": "Asset 29",
+    "activation_cost": 119.25,
+    "availability": [
+      "2026-04-30",
+      "2026-05-03",
+      "2026-05-06"
+    ],
+    "volume": 118
+  },
+  {
+    "code": "A-030",
+    "name": "Asset 30",
+    "activation_cost": 132.5,
+    "availability": [
+      "2026-05-01",
+      "2026-05-03",
+      "2026-05-05"
+    ],
+    "volume": 125
+  },
+  {
+    "code": "A-031",
+    "name": "Asset 31",
+    "activation_cost": 145.75,
+    "availability": [
+      "2026-05-02",
+      "2026-05-05",
+      "2026-05-07"
+    ],
+    "volume": 132
+  },
+  {
+    "code": "A-032",
+    "name": "Asset 32",
+    "activation_cost": 158.0,
+    "availability": [
+      "2026-05-03",
+      "2026-05-05",
+      "2026-05-09"
+    ],
+    "volume": 139
+  },
+  {
+    "code": "A-033",
+    "name": "Asset 33",
+    "activation_cost": 171.25,
+    "availability": [
+      "2026-05-04",
+      "2026-05-07",
+      "2026-05-08"
+    ],
+    "volume": 31
+  },
+  {
+    "code": "A-034",
+    "name": "Asset 34",
+    "activation_cost": 184.5,
+    "availability": [
+      "2026-05-05",
+      "2026-05-07",
+      "2026-05-10"
+    ],
+    "volume": 38
+  },
+  {
+    "code": "A-035",
+    "name": "Asset 35",
+    "activation_cost": 197.75,
+    "availability": [
+      "2026-05-06",
+      "2026-05-09",
+      "2026-05-12"
+    ],
+    "volume": 45
+  },
+  {
+    "code": "A-036",
+    "name": "Asset 36",
+    "activation_cost": 210.0,
+    "availability": [
+      "2026-05-07",
+      "2026-05-09",
+      "2026-05-11"
+    ],
+    "volume": 52
+  },
+  {
+    "code": "A-037",
+    "name": "Asset 37",
+    "activation_cost": 223.25,
+    "availability": [
+      "2026-04-20",
+      "2026-04-23",
+      "2026-04-25"
+    ],
+    "volume": 59
+  },
+  {
+    "code": "A-038",
+    "name": "Asset 38",
+    "activation_cost": 236.5,
+    "availability": [
+      "2026-04-21",
+      "2026-04-23",
+      "2026-04-27"
+    ],
+    "volume": 66
+  },
+  {
+    "code": "A-039",
+    "name": "Asset 39",
+    "activation_cost": 84.75,
+    "availability": [
+      "2026-04-22",
+      "2026-04-25",
+      "2026-04-26"
+    ],
+    "volume": 73
+  },
+  {
+    "code": "A-040",
+    "name": "Asset 40",
+    "activation_cost": 97.0,
+    "availability": [
+      "2026-04-23",
+      "2026-04-25",
+      "2026-04-28"
+    ],
+    "volume": 80
+  },
+  {
+    "code": "A-041",
+    "name": "Asset 41",
+    "activation_cost": 110.25,
+    "availability": [
+      "2026-04-24",
+      "2026-04-27",
+      "2026-04-30"
+    ],
+    "volume": 87
+  },
+  {
+    "code": "A-042",
+    "name": "Asset 42",
+    "activation_cost": 123.5,
+    "availability": [
+      "2026-04-25",
+      "2026-04-27",
+      "2026-04-29"
+    ],
+    "volume": 94
+  },
+  {
+    "code": "A-043",
+    "name": "Asset 43",
+    "activation_cost": 136.75,
+    "availability": [
+      "2026-04-26",
+      "2026-04-29",
+      "2026-05-01"
+    ],
+    "volume": 101
+  },
+  {
+    "code": "A-044",
+    "name": "Asset 44",
+    "activation_cost": 149.0,
+    "availability": [
+      "2026-04-27",
+      "2026-04-29",
+      "2026-05-03"
+    ],
+    "volume": 108
+  },
+  {
+    "code": "A-045",
+    "name": "Asset 45",
+    "activation_cost": 162.25,
+    "availability": [
+      "2026-04-28",
+      "2026-05-01",
+      "2026-05-02"
+    ],
+    "volume": 115
+  },
+  {
+    "code": "A-046",
+    "name": "Asset 46",
+    "activation_cost": 175.5,
+    "availability": [
+      "2026-04-29",
+      "2026-05-01",
+      "2026-05-04"
+    ],
+    "volume": 122
+  },
+  {
+    "code": "A-047",
+    "name": "Asset 47",
+    "activation_cost": 188.75,
+    "availability": [
+      "2026-04-30",
+      "2026-05-03",
+      "2026-05-06"
+    ],
+    "volume": 129
+  },
+  {
+    "code": "A-048",
+    "name": "Asset 48",
+    "activation_cost": 201.0,
+    "availability": [
+      "2026-05-01",
+      "2026-05-03",
+      "2026-05-05"
+    ],
+    "volume": 136
+  },
+  {
+    "code": "A-049",
+    "name": "Asset 49",
+    "activation_cost": 214.25,
+    "availability": [
+      "2026-05-02",
+      "2026-05-05",
+      "2026-05-07"
+    ],
+    "volume": 143
+  },
+  {
+    "code": "A-050",
+    "name": "Asset 50",
+    "activation_cost": 227.5,
+    "availability": [
+      "2026-05-03",
+      "2026-05-05",
+      "2026-05-09"
+    ],
+    "volume": 35
+  },
+  {
+    "code": "A-051",
+    "name": "Asset 51",
+    "activation_cost": 75.75,
+    "availability": [
+      "2026-05-04",
+      "2026-05-07",
+      "2026-05-08"
+    ],
+    "volume": 42
+  },
+  {
+    "code": "A-052",
+    "name": "Asset 52",
+    "activation_cost": 88.0,
+    "availability": [
+      "2026-05-05",
+      "2026-05-07",
+      "2026-05-10"
+    ],
+    "volume": 49
+  },
+  {
+    "code": "A-053",
+    "name": "Asset 53",
+    "activation_cost": 101.25,
+    "availability": [
+      "2026-05-06",
+      "2026-05-09",
+      "2026-05-12"
+    ],
+    "volume": 56
+  },
+  {
+    "code": "A-054",
+    "name": "Asset 54",
+    "activation_cost": 114.5,
+    "availability": [
+      "2026-05-07",
+      "2026-05-09",
+      "2026-05-11"
+    ],
+    "volume": 63
+  },
+  {
+    "code": "A-055",
+    "name": "Asset 55",
+    "activation_cost": 127.75,
+    "availability": [
+      "2026-04-20",
+      "2026-04-23",
+      "2026-04-25"
+    ],
+    "volume": 70
+  },
+  {
+    "code": "A-056",
+    "name": "Asset 56",
+    "activation_cost": 140.0,
+    "availability": [
+      "2026-04-21",
+      "2026-04-23",
+      "2026-04-27"
+    ],
+    "volume": 77
+  },
+  {
+    "code": "A-057",
+    "name": "Asset 57",
+    "activation_cost": 153.25,
+    "availability": [
+      "2026-04-22",
+      "2026-04-25",
+      "2026-04-26"
+    ],
+    "volume": 84
+  },
+  {
+    "code": "A-058",
+    "name": "Asset 58",
+    "activation_cost": 166.5,
+    "availability": [
+      "2026-04-23",
+      "2026-04-25",
+      "2026-04-28"
+    ],
+    "volume": 91
+  },
+  {
+    "code": "A-059",
+    "name": "Asset 59",
+    "activation_cost": 179.75,
+    "availability": [
+      "2026-04-24",
+      "2026-04-27",
+      "2026-04-30"
+    ],
+    "volume": 98
+  },
+  {
+    "code": "A-060",
+    "name": "Asset 60",
+    "activation_cost": 192.0,
+    "availability": [
+      "2026-04-25",
+      "2026-04-27",
+      "2026-04-29"
+    ],
+    "volume": 105
+  },
+  {
+    "code": "A-061",
+    "name": "Asset 61",
+    "activation_cost": 205.25,
+    "availability": [
+      "2026-04-26",
+      "2026-04-29",
+      "2026-05-01"
+    ],
+    "volume": 112
+  },
+  {
+    "code": "A-062",
+    "name": "Asset 62",
+    "activation_cost": 218.5,
+    "availability": [
+      "2026-04-27",
+      "2026-04-29",
+      "2026-05-03"
+    ],
+    "volume": 119
+  },
+  {
+    "code": "A-063",
+    "name": "Asset 63",
+    "activation_cost": 231.75,
+    "availability": [
+      "2026-04-28",
+      "2026-05-01",
+      "2026-05-02"
+    ],
+    "volume": 126
+  },
+  {
+    "code": "A-064",
+    "name": "Asset 64",
+    "activation_cost": 79.0,
+    "availability": [
+      "2026-04-29",
+      "2026-05-01",
+      "2026-05-04"
+    ],
+    "volume": 133
+  },
+  {
+    "code": "A-065",
+    "name": "Asset 65",
+    "activation_cost": 92.25,
+    "availability": [
+      "2026-04-30",
+      "2026-05-03",
+      "2026-05-06"
+    ],
+    "volume": 140
+  },
+  {
+    "code": "A-066",
+    "name": "Asset 66",
+    "activation_cost": 105.5,
+    "availability": [
+      "2026-05-01",
+      "2026-05-03",
+      "2026-05-05"
+    ],
+    "volume": 32
+  },
+  {
+    "code": "A-067",
+    "name": "Asset 67",
+    "activation_cost": 118.75,
+    "availability": [
+      "2026-05-02",
+      "2026-05-05",
+      "2026-05-07"
+    ],
+    "volume": 39
+  },
+  {
+    "code": "A-068",
+    "name": "Asset 68",
+    "activation_cost": 131.0,
+    "availability": [
+      "2026-05-03",
+      "2026-05-05",
+      "2026-05-09"
+    ],
+    "volume": 46
+  },
+  {
+    "code": "A-069",
+    "name": "Asset 69",
+    "activation_cost": 144.25,
+    "availability": [
+      "2026-05-04",
+      "2026-05-07",
+      "2026-05-08"
+    ],
+    "volume": 53
+  },
+  {
+    "code": "A-070",
+    "name": "Asset 70",
+    "activation_cost": 157.5,
+    "availability": [
+      "2026-05-05",
+      "2026-05-07",
+      "2026-05-10"
+    ],
+    "volume": 60
+  },
+  {
+    "code": "A-071",
+    "name": "Asset 71",
+    "activation_cost": 170.75,
+    "availability": [
+      "2026-05-06",
+      "2026-05-09",
+      "2026-05-12"
+    ],
+    "volume": 67
+  },
+  {
+    "code": "A-072",
+    "name": "Asset 72",
+    "activation_cost": 183.0,
+    "availability": [
+      "2026-05-07",
+      "2026-05-09",
+      "2026-05-11"
+    ],
+    "volume": 74
+  },
+  {
+    "code": "A-073",
+    "name": "Asset 73",
+    "activation_cost": 196.25,
+    "availability": [
+      "2026-04-20",
+      "2026-04-23",
+      "2026-04-25"
+    ],
+    "volume": 81
+  },
+  {
+    "code": "A-074",
+    "name": "Asset 74",
+    "activation_cost": 209.5,
+    "availability": [
+      "2026-04-21",
+      "2026-04-23",
+      "2026-04-27"
+    ],
+    "volume": 88
+  },
+  {
+    "code": "A-075",
+    "name": "Asset 75",
+    "activation_cost": 222.75,
+    "availability": [
+      "2026-04-22",
+      "2026-04-25",
+      "2026-04-26"
+    ],
+    "volume": 95
+  },
+  {
+    "code": "A-076",
+    "name": "Asset 76",
+    "activation_cost": 235.0,
+    "availability": [
+      "2026-04-23",
+      "2026-04-25",
+      "2026-04-28"
+    ],
+    "volume": 102
+  },
+  {
+    "code": "A-077",
+    "name": "Asset 77",
+    "activation_cost": 83.25,
+    "availability": [
+      "2026-04-24",
+      "2026-04-27",
+      "2026-04-30"
+    ],
+    "volume": 109
+  },
+  {
+    "code": "A-078",
+    "name": "Asset 78",
+    "activation_cost": 96.5,
+    "availability": [
+      "2026-04-25",
+      "2026-04-27",
+      "2026-04-29"
+    ],
+    "volume": 116
+  },
+  {
+    "code": "A-079",
+    "name": "Asset 79",
+    "activation_cost": 109.75,
+    "availability": [
+      "2026-04-26",
+      "2026-04-29",
+      "2026-05-01"
+    ],
+    "volume": 123
+  },
+  {
+    "code": "A-080",
+    "name": "Asset 80",
+    "activation_cost": 122.0,
+    "availability": [
+      "2026-04-27",
+      "2026-04-29",
+      "2026-05-03"
+    ],
+    "volume": 130
+  },
+  {
+    "code": "A-081",
+    "name": "Asset 81",
+    "activation_cost": 135.25,
+    "availability": [
+      "2026-04-28",
+      "2026-05-01",
+      "2026-05-02"
+    ],
+    "volume": 137
+  },
+  {
+    "code": "A-082",
+    "name": "Asset 82",
+    "activation_cost": 148.5,
+    "availability": [
+      "2026-04-29",
+      "2026-05-01",
+      "2026-05-04"
+    ],
+    "volume": 144
+  },
+  {
+    "code": "A-083",
+    "name": "Asset 83",
+    "activation_cost": 161.75,
+    "availability": [
+      "2026-04-30",
+      "2026-05-03",
+      "2026-05-06"
+    ],
+    "volume": 36
+  },
+  {
+    "code": "A-084",
+    "name": "Asset 84",
+    "activation_cost": 174.0,
+    "availability": [
+      "2026-05-01",
+      "2026-05-03",
+      "2026-05-05"
+    ],
+    "volume": 43
+  },
+  {
+    "code": "A-085",
+    "name": "Asset 85",
+    "activation_cost": 187.25,
+    "availability": [
+      "2026-05-02",
+      "2026-05-05",
+      "2026-05-07"
+    ],
+    "volume": 50
+  },
+  {
+    "code": "A-086",
+    "name": "Asset 86",
+    "activation_cost": 200.5,
+    "availability": [
+      "2026-05-03",
+      "2026-05-05",
+      "2026-05-09"
+    ],
+    "volume": 57
+  },
+  {
+    "code": "A-087",
+    "name": "Asset 87",
+    "activation_cost": 213.75,
+    "availability": [
+      "2026-05-04",
+      "2026-05-07",
+      "2026-05-08"
+    ],
+    "volume": 64
+  },
+  {
+    "code": "A-088",
+    "name": "Asset 88",
+    "activation_cost": 226.0,
+    "availability": [
+      "2026-05-05",
+      "2026-05-07",
+      "2026-05-10"
+    ],
+    "volume": 71
+  },
+  {
+    "code": "A-089",
+    "name": "Asset 89",
+    "activation_cost": 74.25,
+    "availability": [
+      "2026-05-06",
+      "2026-05-09",
+      "2026-05-12"
+    ],
+    "volume": 78
+  },
+  {
+    "code": "A-090",
+    "name": "Asset 90",
+    "activation_cost": 87.5,
+    "availability": [
+      "2026-05-07",
+      "2026-05-09",
+      "2026-05-11"
+    ],
+    "volume": 85
+  },
+  {
+    "code": "A-091",
+    "name": "Asset 91",
+    "activation_cost": 100.75,
+    "availability": [
+      "2026-04-20",
+      "2026-04-23",
+      "2026-04-25"
+    ],
+    "volume": 92
+  },
+  {
+    "code": "A-092",
+    "name": "Asset 92",
+    "activation_cost": 113.0,
+    "availability": [
+      "2026-04-21",
+      "2026-04-23",
+      "2026-04-27"
+    ],
+    "volume": 99
+  },
+  {
+    "code": "A-093",
+    "name": "Asset 93",
+    "activation_cost": 126.25,
+    "availability": [
+      "2026-04-22",
+      "2026-04-25",
+      "2026-04-26"
+    ],
+    "volume": 106
+  },
+  {
+    "code": "A-094",
+    "name": "Asset 94",
+    "activation_cost": 139.5,
+    "availability": [
+      "2026-04-23",
+      "2026-04-25",
+      "2026-04-28"
+    ],
+    "volume": 113
+  },
+  {
+    "code": "A-095",
+    "name": "Asset 95",
+    "activation_cost": 152.75,
+    "availability": [
+      "2026-04-24",
+      "2026-04-27",
+      "2026-04-30"
+    ],
+    "volume": 120
+  },
+  {
+    "code": "A-096",
+    "name": "Asset 96",
+    "activation_cost": 165.0,
+    "availability": [
+      "2026-04-25",
+      "2026-04-27",
+      "2026-04-29"
+    ],
+    "volume": 127
+  },
+  {
+    "code": "A-097",
+    "name": "Asset 97",
+    "activation_cost": 178.25,
+    "availability": [
+      "2026-04-26",
+      "2026-04-29",
+      "2026-05-01"
+    ],
+    "volume": 134
+  },
+  {
+    "code": "A-098",
+    "name": "Asset 98",
+    "activation_cost": 191.5,
+    "availability": [
+      "2026-04-27",
+      "2026-04-29",
+      "2026-05-03"
+    ],
+    "volume": 141
+  },
+  {
+    "code": "A-099",
+    "name": "Asset 99",
+    "activation_cost": 204.75,
+    "availability": [
+      "2026-04-28",
+      "2026-05-01",
+      "2026-05-02"
+    ],
+    "volume": 33
+  },
+  {
+    "code": "A-100",
+    "name": "Asset 100",
+    "activation_cost": 217.0,
+    "availability": [
+      "2026-04-29",
+      "2026-05-01",
+      "2026-05-04"
+    ],
+    "volume": 40
+  }
+]

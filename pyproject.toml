@@ -4,7 +4,10 @@ version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.136.0",
+    "ortools>=9.15.6755",
     "pydantic>=2.13.1",
+    "pydantic-settings>=2.13.1",
+    "sqlalchemy>=2.0.44",
     "uvicorn>=0.44.0",
 ]
 
@@ -21,11 +24,29 @@ dev = [
 
 [tool.coverage.run]
 branch = true
+omit = [
+    "data/*",
+    "data/**/*",
+    "tests/*",
+    "tests/**/*",
+]
+
+[tool.coverage.report]
+omit = [
+    "data/*",
+    "data/**/*",
+    "tests/*",
+    "tests/**/*",
+]
 
 # == MYPY ==
 
 [tool.mypy]
 strict = true
+
+[[tool.mypy.overrides]]
+module = ["ortools.linear_solver.pywraplp"]
+ignore_missing_imports = true
 
 # == RUFF ==
 
@@ -35,15 +56,18 @@ line-length = 120
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
+    "COM812",
     "D100",
     "D104",
     "D203",
     "D212",
-    "COM812",
+    "EM101",
     "PT009",
     "PT027",
     "TC001",
+    "TC002",
     "TC003",
+    "TRY003",
 ]
 fixable = ["ALL"]
 unfixable = []

@@ -1,6 +1,6 @@
 from datetime import date
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class Asset(BaseModel):
@@ -16,6 +16,8 @@ class Asset(BaseModel):
         volume: integer, correspond of the number of kW that can be activated for this asset.
 
     """
+
+    model_config = ConfigDict(from_attributes=True)
 
     code: str
     name: str

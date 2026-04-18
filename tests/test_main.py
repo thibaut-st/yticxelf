@@ -12,7 +12,7 @@ from schemas.activation import ActivationIn
 class TestActivationRequestEndpoint(TestCase):
     """Test the activation request endpoint."""
 
-    endpoint = "/activation-request"
+    endpoint = "/request/activation"
 
     def setUp(self) -> None:
         """Create a test client for each test."""
