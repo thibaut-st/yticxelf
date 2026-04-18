@@ -30,3 +30,15 @@ Content-Type: application/json
   "date": "2026-04-20",
   "volume": 0
 }
+
+
+###
+
+POST http://127.0.0.1:8000/request/activation
+Accept: application/json
+Content-Type: application/json
+
+{
+  "date": "1776636000",
+  "volume": 100
+}
