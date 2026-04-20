@@ -69,9 +69,14 @@ uv sync
 ### Environment variables
 
 Copy `.env.dist` to `.env` and set the environment variables:
-- `OPTIMIZATION_ALGORITHM`
+- `OPTIMIZATION_ALGORITHM`: The algorithm used to select assets.
   - `bf`: Brute-force algorithm.
   - `scip`: SCIP algorithm, run from the OR-Tools library.
+- `SAMPLE_ASSETS_FILE`: The file containing the sample assets, loaded by the database initializer.
+  - `sample_assets.json`: 10 assets.
+  - `sample_assets_100.json`: 100 assets.
+  - `sample_assets_1000.json`: 1000 assets.
+  - `sample_assets_10000.json`: 10000 assets.
 
 ### Run locally
 
@@ -81,8 +86,8 @@ To get a working local database, run:
 uv run python -m data.load_sample_assets
 ```
 
-This debug helper deletes `data/flexcity.db` if it exists, recreates the schema from the SQLAlchemy models, 
-and loads the sample assets from `data/sample_assets.json`.
+This database helper deletes `data/flexcity.db` if it exists, recreates the schema from the SQLAlchemy models, 
+and loads the sample assets file defined in the environment variables.
 
 Then start the development server:
 

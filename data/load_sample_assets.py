@@ -2,10 +2,11 @@ import json
 import sys
 from pathlib import Path
 
+from core.config import settings
 from data.db import DATABASE_URL, Base, make_engine, make_session_factory
 from models import AssetModel
 
-SAMPLE_ASSETS_PATH = Path(__file__).resolve().parent / "sample_assets.json"
+SAMPLE_ASSETS_PATH = Path(__file__).resolve().parent / settings.sample_assets_file
 
 
 def recreate_db_with_sample_assets() -> int:
