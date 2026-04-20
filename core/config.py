@@ -13,7 +13,6 @@ class Settings(BaseSettings):
     """Application settings, load the environment variables."""
 
     optimization_algorithm: AlgorithmType
-    sample_assets_file: str
 
     model_config = SettingsConfigDict(env_file=DOT_ENV_PATH)
 
