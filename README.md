@@ -53,20 +53,27 @@ the service needs to sort the list manually instead of using a database filter.
 
 This project uses FastAPI, a Python web API framework, and Uvicorn, an ASGI server used to run the app locally.
 
-## Run locally
-
-Prerequisites:
+### Prerequisites
 
 - Python 3.14+
 - `uv` (Python package and environment manager, similar to `pipenv` or `poetry`)
 
-## Install dependencies
+## Setup
+
+### Install dependencies
 
 ```bash
 uv sync
 ```
 
-## Run locally
+### Environment variables
+
+Copy `.env.dist` to `.env` and set the environment variables:
+- `OPTIMIZATION_ALGORITHM`
+  - `bf`: Brute-force algorithm.
+  - `scip`: SCIP algorithm, run from the OR-Tools library.
+
+### Run locally
 
 To get a working local database, run:
 
@@ -85,13 +92,43 @@ uv run uvicorn main:app --reload --host 127.0.0.1 --port 8000
 
 The API is available at `http://127.0.0.1:8000/api/v1/`.
 
-## API docs
+## API
+
+### Auto-generated documentation
 
 Once the server is running, you can access:
 
 - Swagger UI: `http://127.0.0.1:8000/api/v1/docs`
 - OpenAPI schema: `http://127.0.0.1:8000/api/v1/openapi.json`
 - ReDoc: `http://127.0.0.1:8000/api/v1/redoc`
+
+### Endpoint
+
+- `POST /request/activation`: Request activation of assets.
+    - Input: 
+      ```json
+      {"date": <date as str>, "volume": <int>}
+      ```
+    - Output: 
+      ```json
+      {
+        "assets": [
+          {
+            "code": <str>,
+            "name": <str>,
+            "activation_cost": <float>,
+            "availability": [
+              <date as str>,
+              ...
+            ],
+            "volume": <int>
+          },
+          ...
+        ],
+        "total_volume": <int>,
+        "total_cost": <float>
+      }
+      ```
 
 ## Example request
 
@@ -145,7 +182,7 @@ Automated and manual checks currently used in this repository:
 ## Current behavior
 
 - The API currently exposes `POST /request/activation`.
-- The request body contains `date` and `volume`, and `volume` must be a positive integer.
+- The request body contains `date` and `volume`: `date` must be a string of format `YYYY-MM-DD` and `volume` must be a positive integer.
 - The endpoint reads assets from the SQLite database in `data/flexcity.db`.
 - The helper `uv run python -m data.load_sample_assets` resets that database and loads the sample assets from
   `data/sample_assets.json`.
