@@ -3,7 +3,7 @@ from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-type AlgorithmType = Literal["bf", "scip"]
+type AlgorithmType = Literal["bf", "dp", "scip"]
 
 BASE_DIR = Path(__file__).resolve().parent
 DOT_ENV_PATH = BASE_DIR.parent / ".env"
