@@ -56,7 +56,7 @@ app = FastAPI(
             }
           """,
 )
-async def request_activation(activation: ActivationIn) -> AssetListOut:
+def request_activation(activation: ActivationIn) -> AssetListOut:
     """Request an activation."""
     try:
         selected_assets = optimize_asset_selection(activation=activation)

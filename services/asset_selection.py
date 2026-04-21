@@ -2,7 +2,7 @@ import logging
 from typing import TypedDict
 
 from core.config import settings
-from models import ActivationAssetHistoryRepository, ActivationRepository, AssetModel, AssetRepository
+from models import ActivationRepository, AssetModel, AssetRepository
 from schemas.activation import ActivationIn
 from services._algorithms import algorithm_map
 
@@ -56,9 +56,8 @@ def optimize_asset_selection(activation: ActivationIn) -> AssetSelection:
     total_volume_selected = sum(asset.volume for asset in selected_assets)
     total_cost_selected = sum(asset.activation_cost for asset in selected_assets)
 
-    # Save the activation and the history of this activation
-    activation_record = ActivationRepository.save(activation.date, activation.volume)
-    ActivationAssetHistoryRepository.save(activation_record, selected_assets)
+    # Save the activation and its history in a single transaction.
+    ActivationRepository.save_with_history(activation.date, activation.volume, selected_assets)
 
     return {
         "selected_assets": selected_assets,
