@@ -2,7 +2,6 @@ import logging
 from collections.abc import Callable
 from itertools import combinations
 from math import inf
-from uuid import UUID
 
 from ortools.linear_solver.pywraplp import Solver
 
@@ -11,8 +10,8 @@ from models import AssetModel
 
 _logger = logging.getLogger(__name__)
 
-type UseAsset = dict[UUID, bool]
-type PowerUsed = dict[UUID, int]
+type UseAsset = dict[str, bool]
+type PowerUsed = dict[str, int]
 
 
 def brute_force(activation_volume: int, available_assets: list[AssetModel]) -> list[AssetModel]:
@@ -38,6 +37,9 @@ def brute_force(activation_volume: int, available_assets: list[AssetModel]) -> l
             if combined_volume >= activation_volume and combined_cost < final_cost:
                 selected_assets = list(asset_subset)  # update the selected assets to the current combination
                 final_cost = combined_cost  # update the final cost to the current combination's cost
+
+    if not selected_assets:
+        raise ValueError("No valid asset selection found.")
 
     return selected_assets
 
@@ -199,12 +201,13 @@ def _define_solver_variables(ortools_solver: Solver, available_assets: list[Asse
     use_asset: UseAsset = {}
     power_used: PowerUsed = {}
     for asset in available_assets:
+        asset_code = asset.code
         # parameters:
         #   lb = lower bound power usage (always 0)
         #   up = upper bound of the power of the asset (asset's volume)
         #   name = name of the variable's solver for solver internal use and debugging purpose
-        use_asset[asset.id] = ortools_solver.BoolVar(name=f"use_asset_{asset.code}")
-        power_used[asset.id] = ortools_solver.IntVar(lb=0, ub=asset.volume, name=f"power_used_{asset.code}")
+        use_asset[asset_code] = ortools_solver.BoolVar(name=f"use_asset_{asset_code}")
+        power_used[asset_code] = ortools_solver.IntVar(lb=0, ub=asset.volume, name=f"power_used_{asset_code}")
 
     return use_asset, power_used
 
@@ -224,26 +227,28 @@ def _set_solver_constraints(
     Constraint 2: For each asset, the power can only be used if the asset is used,
         and the power used for this asset can't be superior to its max volume.
 
-    Examples:
-       use_asset[asset_id] = 0 -> power_used[asset_id] <= 0 -> can't provide power
-       use_asset[asset_id] = 1 -> power_used[asset_id] <= asset.volume -> can provide power up to the maximum
+    For example:
+       use_asset[asset_code] = 0 -> power_used[asset_code] <= 0 -> can't provide power
+       use_asset[asset_code] = 1 -> power_used[asset_code] <= asset.volume -> can provide power up to the maximum
 
     :param ortools_solver: The OR-tools solver.
     :param use_asset: The dictionary of the assets as a solver's boolean (used/not used).
     :param power_used: The dictionary of the power usage of the assets as a solver's integer (between 0 and max volume).
     :param activation_volume: The volume of the activation to reach.
     :param available_assets: The list of available assets.
-
     """
     # Constraint 1
     # power_sum: Sum of the power of the assets as an expression (power_used_a + power_used_b + ...)
-    power_sum = ortools_solver.Sum(power_used[asset.id] for asset in available_assets)
+    power_sum = ortools_solver.Sum(power_used[asset.code] for asset in available_assets)
     ortools_solver.Add(constraint=power_sum >= activation_volume, name="power_sum_geq")
 
     # Constraint 2
     for asset in available_assets:
-        asset_id = asset.id
-        ortools_solver.Add(power_used[asset_id] <= asset.volume * use_asset[asset_id], name="use_power_if_selected")
+        asset_code = asset.code
+        ortools_solver.Add(
+            power_used[asset_code] <= asset.volume * use_asset[asset_code],
+            name=f"use_power_if_selected_{asset_code}",
+        )
 
 
 def _set_solver_objective(ortools_solver: Solver, use_asset: UseAsset, available_assets: list[AssetModel]) -> None:
@@ -259,7 +264,7 @@ def _set_solver_objective(ortools_solver: Solver, use_asset: UseAsset, available
     # objective_to_minimize: Sum of the assets' costs activated or not,
     #   as an expression (cost_1 * 0|1 + cost_2 * 0|1 + ...)
     objective_to_minimize = ortools_solver.Sum(
-        __get_asset(asset.id, available_assets).activation_cost * use_asset[asset.id] for asset in available_assets
+        asset.activation_cost * use_asset[asset.code] for asset in available_assets
     )
     # Minimize: Instruct the solver to make the total cost of the combination as small as possible.
     ortools_solver.Minimize(objective_to_minimize)
@@ -278,22 +283,11 @@ def _get_selected_assets(use_asset: UseAsset, available_assets: list[AssetModel]
     selected_assets = []
     for asset in available_assets:
         # round ensure that the value is an integer with value 0 or 1
-        selected = round(use_asset[asset.id].solution_value())  # type: ignore[attr-defined]
+        selected = round(use_asset[asset.code].solution_value())  # type: ignore[attr-defined]
         if selected == 1:  # 1 meaning that the asset is part of the found solution
             selected_assets.append(asset)
 
     return selected_assets
-
-
-def __get_asset(asset_id: UUID, assets: list[AssetModel]) -> AssetModel:
-    """
-    Get the asset with the given ID from a list of assets.
-
-    :param asset_id: The UUID of the asset to retrieve.
-    :param assets: The list of assets to search in.
-    :return: The asset with the given ID.
-    """
-    return next(asset for asset in assets if asset.id == asset_id)
 
 
 algorithm_map: dict[AlgorithmType, Callable[[int, list[AssetModel]], list[AssetModel]]] = {
