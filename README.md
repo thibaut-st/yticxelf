@@ -49,7 +49,7 @@ Expected behavior:
    the service needs to sort the list manually instead of using a database filter.
 3. No migrations, the database is created with sample data by a helper.
 4. Known limit in the implemented algorithms, if there are multiple solutions for a minimal cost
-the smallest volume is not guaranteed. 
+   the smallest volume is not guaranteed.
 
 ## Technical context
 
@@ -74,6 +74,7 @@ Copy `.env.dist` to `.env` and set the environment variables:
 
 - `OPTIMIZATION_ALGORITHM`: The algorithm used to select assets.
     - `bf`: Brute-force algorithm.
+    - `dp`: Dynamic programming algorithm.
     - `scip`: SCIP algorithm, run from the OR-Tools library.
 - `SAMPLE_ASSETS_FILE`: The file containing the sample assets, loaded by the database initializer.
     - `sample_assets.json`: 10 assets.
@@ -231,13 +232,14 @@ Automated and manual checks currently used in this repository:
 - The API currently exposes `POST /request/activation`.
 - The request body contains `date` and `volume`: `date` must be a string of format `YYYY-MM-DD` and `volume` must be a
   positive integer.
-- The endpoint reads assets from the SQLite database in `data/flexcity.db`.
-- The helper `uv run python -m data.load_sample_assets` resets that database and loads the sample assets from
-  `data/sample_assets.json`.
+- The endpoint reads assets from the SQLite database in `data/flexcity.db` (local path) or
+  `/var/lib/flexcity/flexcity.db` (Docker).
+- The helper `uv run python -m data.load_sample_assets` resets that database and loads the sample assets from the file
+  defined in the environment variables `SAMPLE_ASSETS_FILE`.
 - Asset availability is stored as JSON lists of ISO date strings and filtered in Python for the requested date.
-- Asset selection uses a brute-force combination search to minimize total activation cost while covering the requested
-  volume.
+- Asset selection uses the algorithm defined by the environment variable `OPTIMIZATION_ALGORITHM` to determine the
+  optimal set of assets.
 - On success, the API returns the selected assets plus `total_volume` and `total_cost`.
 - The current implementation also persists activation and activation-history rows in SQLite.
-- If the requested volume cannot be covered by available assets, the API returns `409 Conflict` with a detailed error
-  message.
+- If the requested volume cannot be covered by available assets or no assets are available at the requested date, the
+  API returns `409 Conflict` with a detailed error message.
