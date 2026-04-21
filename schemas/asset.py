@@ -1,6 +1,7 @@
 from datetime import date
+from typing import Annotated
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Asset(BaseModel):
@@ -19,11 +20,13 @@ class Asset(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-    code: str
-    name: str
-    activation_cost: float
-    availability: list[date]
-    volume: int
+    code: Annotated[str, Field(description="The asset unique code.", examples=["AS-0001"])]
+    name: Annotated[str, Field(description="The asset name.", examples=["Asset 1"])]
+    activation_cost: Annotated[float, Field(description="The asset activation cost, in €.", examples=[100.0])]
+    availability: Annotated[
+        list[date], Field(description="The asset availability dates.", examples=[date(2026, 4, 20)])
+    ]
+    volume: Annotated[int, Field(description="The asset maximum available volume, in kW.", examples=[100])]
 
 
 class AssetListOut(BaseModel):
@@ -35,6 +38,18 @@ class AssetListOut(BaseModel):
 
     """
 
-    assets: list[Asset]
-    total_volume: int
-    total_cost: float
+    assets: Annotated[
+        list[Asset],
+        Field(
+            description="The list of assets selected for the activation.",
+            examples=[
+                Asset(
+                    code="AS-0001", name="Asset 1", activation_cost=100.0, availability=[date(2026, 4, 20)], volume=100
+                )
+            ],
+        ),
+    ]
+    total_volume: Annotated[int, Field(description="The total volume of the selected assets, in kW.", examples=[100])]
+    total_cost: Annotated[
+        float, Field(description="The total cost of the selected assets activation, in €.", examples=[100.0])
+    ]

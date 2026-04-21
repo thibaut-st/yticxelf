@@ -1,10 +1,13 @@
+from os import environ
 from pathlib import Path
 
 from sqlalchemy import MetaData, create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
-DATABASE_PATH = Path(__file__).resolve().parent / "flexcity.db"
+DEFAULT_DATABASE_PATH = Path(__file__).resolve().parent / "flexcity.db"
+DATABASE_PATH_ENV = environ.get("FLEXCITY_DATABASE_PATH")
+DATABASE_PATH = Path(DATABASE_PATH_ENV).expanduser().resolve() if DATABASE_PATH_ENV else DEFAULT_DATABASE_PATH
 DATABASE_URL = f"sqlite:///{DATABASE_PATH.as_posix()}"
 
 

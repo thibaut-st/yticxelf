@@ -2,18 +2,19 @@ import json
 import sys
 from pathlib import Path
 
-from data.db import DATABASE_URL, Base, make_engine, make_session_factory
+from core.config import settings
+from data.db import DATABASE_PATH, DATABASE_URL, Base, make_engine, make_session_factory
 from models import AssetModel
 
-SAMPLE_ASSETS_PATH = Path(__file__).resolve().parent / "sample_assets.json"
+SAMPLE_ASSETS_PATH = Path(__file__).resolve().parent / settings.sample_assets_file
 
 
 def recreate_db_with_sample_assets() -> int:
     """Reset the SQLite database and load the sample asset JSON file."""
     # Delete the existing database file if it exists.
-    database_path = Path(DATABASE_URL.removeprefix("sqlite:///"))
-    if database_path.exists():
-        database_path.unlink()
+    DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    if DATABASE_PATH.exists():
+        DATABASE_PATH.unlink()
 
     # Create a new database
     engine = make_engine(DATABASE_URL)
