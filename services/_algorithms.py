@@ -57,7 +57,7 @@ def dynamic_programming(activation_volume: int, available_assets: list[AssetMode
     # Initialize the table with volume 0 kWh at cost 0.00€
     covered_volume_minimal_cost = {0: 0.0}
     # Map to store the optimal assets chosen for each volume
-    # Initialize the table with the empty tuple (no assets selected) for volume 0
+    # Initialize the table with the empty tuple (no assets selected) for volume 0 kWh
     covered_volume_chosen_path: dict[int, tuple[str, ...]] = {0: ()}
 
     covered_volume_minimal_cost, covered_volume_chosen_path = _dp_calculate_solution(
@@ -84,6 +84,33 @@ def _dp_calculate_solution(
 ) -> tuple[dict[int, float], dict[int, tuple[str, ...]]]:
     """
     Loop through all available assets and calculate the optimal solution for each volume.
+
+    Loop example:
+
+    activation_volume = 30
+    available_assets = [{code: "A-3",volume: 25, cost: 15}]
+    covered_volume_minimal_cost = {10: 20, 20: 5}
+    covered_volume_chosen_path = {10: ("A-1",),20: ("A-2",)}
+    -> loop asset
+        next_covered_volume_minimal_cost, next_covered_volume_chosen_path = copy
+        -> loop volume/cost, iteration 1: current_covered_volume = 10, current_minimal_cost = 20
+            new_covered_volume = min(30, 10 + 25) = 30
+            new_cost = 20 + 15 = 35
+            best_know_cost = inf
+            35 < inf -> update solution
+            next_covered_volume_minimal_cost = {10: 20, 20: 5, 30: 35}
+            next_covered_volume_chosen_path = {10: ("A-1",),20: ("A-2",), 30: ("A-1","A-3",)}
+        -> loop volume/cost, iteration 2: current_covered_volume = 20, current_minimal_cost = 5
+            new_covered_volume = min(30, 20 + 25) = 30
+            new_cost = 5 + 15 = 20
+            best_known_cost = 35
+            20 < 30 -> update solution
+            next_covered_volume_minimal_cost = {10: 20, 20: 5, 30: 20}
+            next_covered_volume_chosen_path = {10: ("A-1",),20: ("A-2",), 30: ("A-2","A-3",)}
+        update covered_volume_minimal_cost, covered_volume_chosen_path with iteration solution
+    return the solution
+
+
 
     :param activation_volume: The volume of the activation to reach.
     :param available_assets: The list of available assets.
