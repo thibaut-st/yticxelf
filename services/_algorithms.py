@@ -54,10 +54,10 @@ def dynamic_programming(activation_volume: int, available_assets: list[AssetMode
     code_asset_map = {asset.code: asset for asset in available_assets}
 
     # Map to store the optimal solutions for each available volume in the assets
-    # Initialize the table with volume 0 kWh at cost 0.00€
+    # Initialize the table with volume 0 kW at cost 0.00€
     covered_volume_minimal_cost = {0: 0.0}
     # Map to store the optimal assets chosen for each volume
-    # Initialize the table with the empty tuple (no assets selected) for volume 0 kWh
+    # Initialize the table with the empty tuple (no assets selected) for volume 0 kW
     covered_volume_chosen_path: dict[int, tuple[str, ...]] = {0: ()}
 
     covered_volume_minimal_cost, covered_volume_chosen_path = _dp_calculate_solution(
