@@ -48,6 +48,8 @@ Expected behavior:
 2. Since the dates are simple JSON lists,
    the service needs to sort the list manually instead of using a database filter.
 3. No migrations, the database is created with sample data by a helper.
+4. Known limit in the implemented algorithms, if there are multiple solutions for a minimal cost
+the smallest volume is not guaranteed. 
 
 ## Technical context
 

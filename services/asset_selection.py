@@ -40,8 +40,9 @@ def optimize_asset_selection(activation: ActivationIn) -> AssetSelection:
     asset_record_list = AssetRepository.get_all_assets()
     available_assets = [asset for asset in asset_record_list if requested_date in asset.availability]
 
-    # Raise an error if there are not enough assets available for the requested volume
-    __check_total_volume_available(requested_volume, available_assets)
+    # Raise an error if there are not enough assets available for the requested volume,
+    # or if there is no asset available for the requested date
+    __check_availability(requested_volume, available_assets)
 
     # Call the algorithm that will optimize the asset selection
     optimization_algorithm = settings.optimization_algorithm
@@ -66,7 +67,7 @@ def optimize_asset_selection(activation: ActivationIn) -> AssetSelection:
     }
 
 
-def __check_total_volume_available(requested_volume: int, available_assets: list[AssetModel]) -> None:
+def __check_availability(requested_volume: int, available_assets: list[AssetModel]) -> None:
     """
     Check if there are enough assets available for the requested volume.
 
@@ -76,6 +77,9 @@ def __check_total_volume_available(requested_volume: int, available_assets: list
     :param available_assets: The list of available assets from the database.
     :raises ValueError: If there are not enough assets available.
     """
+    if not available_assets:
+        raise ValueError("No assets available for the requested date")
+
     total_volume_available = sum(asset.volume for asset in available_assets)
     if total_volume_available < requested_volume:
         error_message = (
