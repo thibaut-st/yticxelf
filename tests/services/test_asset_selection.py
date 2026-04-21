@@ -8,8 +8,7 @@ from services.asset_selection import optimize_asset_selection
 from tests.dummy_data import ASSET_DUMMY_MODELS
 
 
-@patch("services.asset_selection.ActivationRepository.save", new=Mock())
-@patch("services.asset_selection.ActivationAssetHistoryRepository.save", new=Mock())
+@patch("services.asset_selection.ActivationRepository.save_with_history", new=Mock())
 class TestAssetSelectionBruteForce(TestCase):
     """Test the asset selection service."""
 

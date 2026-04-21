@@ -2,7 +2,6 @@ from unittest import TestCase
 from unittest.mock import patch
 
 import models.activation as activation_module
-import models.activation_asset_history as activation_asset_history_module
 import models.asset as asset_module
 from data.db import Base, make_engine, make_session_factory
 
@@ -26,19 +25,11 @@ class RepositoryTestCase(TestCase):
             "SessionLocal",
             new=self.session_factory,
         )
-        self.activation_asset_history_session_patch = patch.object(
-            activation_asset_history_module,
-            "SessionLocal",
-            new=self.session_factory,
-        )
-
         self.activation_session_patch.start()
         self.asset_session_patch.start()
-        self.activation_asset_history_session_patch.start()
 
     def tearDown(self) -> None:
         """Stop repository patches and dispose of the test database."""
-        self.activation_asset_history_session_patch.stop()
         self.asset_session_patch.stop()
         self.activation_session_patch.stop()
         self.engine.dispose()

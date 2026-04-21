@@ -31,5 +31,5 @@ class AssetRepository:
     @staticmethod
     def get_all_assets() -> list[AssetModel]:
         """Get all assets from the database."""
-        with SessionLocal() as session:
+        with SessionLocal.begin() as session:
             return session.query(AssetModel).all()

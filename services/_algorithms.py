@@ -176,7 +176,7 @@ def scip(activation_volume: int, available_assets: list[AssetModel]) -> list[Ass
     # Solve the problem given the variables, constraints, and the objective.
     status = ortools_solver.Solve()
 
-    if status not in (Solver.OPTIMAL, Solver.FEASIBLE):
+    if status != Solver.OPTIMAL:
         message = "No optimal solution found."
         _logger.warning(message)
         raise ValueError(message)
