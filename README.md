@@ -45,28 +45,83 @@ Expected behavior:
 #### Trade-offs
 
 1. The dates in the Asset's availability model are saved as simple JSON lists.
-2. Since the dates are simple JSON lists, 
-the service needs to sort the list manually instead of using a database filter.
+2. Since the dates are simple JSON lists,
+   the service needs to sort the list manually instead of using a database filter.
 3. No migrations, the database is created with sample data by a helper.
+4. Known limit in the implemented algorithms, if there are multiple solutions for a minimal cost
+   the smallest volume is not guaranteed.
 
 ## Technical context
 
 This project uses FastAPI, a Python web API framework, and Uvicorn, an ASGI server used to run the app locally.
 
-## Run locally
-
-Prerequisites:
+### Prerequisites
 
 - Python 3.14+
 - `uv` (Python package and environment manager, similar to `pipenv` or `poetry`)
 
-## Install dependencies
+## Setup
+
+### Install dependencies
 
 ```bash
 uv sync
 ```
 
-## Run locally
+### Environment variables
+
+Copy `.env.dist` to `.env` and set the environment variables:
+
+- `OPTIMIZATION_ALGORITHM`: The algorithm used to select assets.
+    - `bf`: Brute-force algorithm.
+    - `dp`: Dynamic programming algorithm.
+    - `scip`: SCIP algorithm, run from the OR-Tools library.
+- `SAMPLE_ASSETS_FILE`: The file containing the sample assets, loaded by the database initializer.
+    - `sample_assets.json`: 10 assets.
+    - `sample_assets_100.json`: 100 assets.
+    - `sample_assets_1000.json`: 1000 assets.
+    - `sample_assets_10000.json`: 10000 assets.
+
+### Run with Docker
+
+Build the image:
+
+```bash
+docker build -t flexcity .
+```
+
+Run the container with a named volume for the SQLite database:
+
+```bash
+docker run --rm -p 8000:8000 -v flexcity-data:/var/lib/flexcity flexcity
+```
+
+The image provides these defaults:
+
+- `OPTIMIZATION_ALGORITHM=scip`
+- `SAMPLE_ASSETS_FILE=sample_assets_10000.json`
+
+Override environment variables with `-e`:
+
+```bash
+docker run --rm -p 8000:8000 \
+  -e OPTIMIZATION_ALGORITHM=bf \
+  -e SAMPLE_ASSETS_FILE=sample_assets_100.json \
+  -v flexcity-data:/var/lib/flexcity \
+  flexcity
+```
+
+You can also pass the local environment file:
+
+```bash
+docker run --rm -p 8000:8000 --env-file .env -v flexcity-data:/var/lib/flexcity flexcity
+```
+
+The Docker image installs runtime dependencies with `uv sync --locked --no-dev --no-install-project`. At container
+startup, it runs `python -m data.load_sample_assets`, which recreates the configured SQLite database, then starts
+Uvicorn. The container runs as a non-root `app` user.
+
+### Run locally
 
 To get a working local database, run:
 
@@ -74,8 +129,8 @@ To get a working local database, run:
 uv run python -m data.load_sample_assets
 ```
 
-This debug helper deletes `data/flexcity.db` if it exists, recreates the schema from the SQLAlchemy models, 
-and loads the sample assets from `data/sample_assets.json`.
+This database helper deletes `data/flexcity.db` if it exists, recreates the schema from the SQLAlchemy models,
+and loads the sample assets file defined in the environment variables.
 
 Then start the development server:
 
@@ -85,13 +140,43 @@ uv run uvicorn main:app --reload --host 127.0.0.1 --port 8000
 
 The API is available at `http://127.0.0.1:8000/api/v1/`.
 
-## API docs
+## API
+
+### Auto-generated documentation
 
 Once the server is running, you can access:
 
 - Swagger UI: `http://127.0.0.1:8000/api/v1/docs`
 - OpenAPI schema: `http://127.0.0.1:8000/api/v1/openapi.json`
 - ReDoc: `http://127.0.0.1:8000/api/v1/redoc`
+
+### Endpoint
+
+- `POST /request/activation`: Request activation of assets.
+    - Input:
+      ```json
+      {"date": <date as str>, "volume": <int>}
+      ```
+    - Output:
+      ```json
+      {
+        "assets": [
+          {
+            "code": <str>,
+            "name": <str>,
+            "activation_cost": <float>,
+            "availability": [
+              <date as str>,
+              ...
+            ],
+            "volume": <int>
+          },
+          ...
+        ],
+        "total_volume": <int>,
+        "total_cost": <float>
+      }
+      ```
 
 ## Example request
 
@@ -145,14 +230,16 @@ Automated and manual checks currently used in this repository:
 ## Current behavior
 
 - The API currently exposes `POST /request/activation`.
-- The request body contains `date` and `volume`, and `volume` must be a positive integer.
-- The endpoint reads assets from the SQLite database in `data/flexcity.db`.
-- The helper `uv run python -m data.load_sample_assets` resets that database and loads the sample assets from
-  `data/sample_assets.json`.
+- The request body contains `date` and `volume`: `date` must be a string of format `YYYY-MM-DD` and `volume` must be a
+  positive integer.
+- The endpoint reads assets from the SQLite database in `data/flexcity.db` (local path) or
+  `/var/lib/flexcity/flexcity.db` (Docker).
+- The helper `uv run python -m data.load_sample_assets` resets that database and loads the sample assets from the file
+  defined in the environment variables `SAMPLE_ASSETS_FILE`.
 - Asset availability is stored as JSON lists of ISO date strings and filtered in Python for the requested date.
-- Asset selection uses a brute-force combination search to minimize total activation cost while covering the requested
-  volume.
+- Asset selection uses the algorithm defined by the environment variable `OPTIMIZATION_ALGORITHM` to determine the
+  optimal set of assets.
 - On success, the API returns the selected assets plus `total_volume` and `total_cost`.
 - The current implementation also persists activation and activation-history rows in SQLite.
-- If the requested volume cannot be covered by available assets, the API returns `409 Conflict` with a detailed error
-  message.
+- If the requested volume cannot be covered by available assets or no assets are available at the requested date, the
+  API returns `409 Conflict` with a detailed error message.
