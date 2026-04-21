@@ -45,8 +45,8 @@ Expected behavior:
 #### Trade-offs
 
 1. The dates in the Asset's availability model are saved as simple JSON lists.
-2. Since the dates are simple JSON lists, 
-the service needs to sort the list manually instead of using a database filter.
+2. Since the dates are simple JSON lists,
+   the service needs to sort the list manually instead of using a database filter.
 3. No migrations, the database is created with sample data by a helper.
 
 ## Technical context
@@ -69,14 +69,54 @@ uv sync
 ### Environment variables
 
 Copy `.env.dist` to `.env` and set the environment variables:
+
 - `OPTIMIZATION_ALGORITHM`: The algorithm used to select assets.
-  - `bf`: Brute-force algorithm.
-  - `scip`: SCIP algorithm, run from the OR-Tools library.
+    - `bf`: Brute-force algorithm.
+    - `scip`: SCIP algorithm, run from the OR-Tools library.
 - `SAMPLE_ASSETS_FILE`: The file containing the sample assets, loaded by the database initializer.
-  - `sample_assets.json`: 10 assets.
-  - `sample_assets_100.json`: 100 assets.
-  - `sample_assets_1000.json`: 1000 assets.
-  - `sample_assets_10000.json`: 10000 assets.
+    - `sample_assets.json`: 10 assets.
+    - `sample_assets_100.json`: 100 assets.
+    - `sample_assets_1000.json`: 1000 assets.
+    - `sample_assets_10000.json`: 10000 assets.
+
+### Run with Docker
+
+Build the image:
+
+```bash
+docker build -t flexcity .
+```
+
+Run the container with a named volume for the SQLite database:
+
+```bash
+docker run --rm -p 8000:8000 -v flexcity-data:/var/lib/flexcity flexcity
+```
+
+The image provides these defaults:
+
+- `OPTIMIZATION_ALGORITHM=scip`
+- `SAMPLE_ASSETS_FILE=sample_assets_10000.json`
+
+Override environment variables with `-e`:
+
+```bash
+docker run --rm -p 8000:8000 \
+  -e OPTIMIZATION_ALGORITHM=bf \
+  -e SAMPLE_ASSETS_FILE=sample_assets_100.json \
+  -v flexcity-data:/var/lib/flexcity \
+  flexcity
+```
+
+You can also pass the local environment file:
+
+```bash
+docker run --rm -p 8000:8000 --env-file .env -v flexcity-data:/var/lib/flexcity flexcity
+```
+
+The Docker image installs runtime dependencies with `uv sync --locked --no-dev --no-install-project`. At container
+startup, it runs `python -m data.load_sample_assets`, which recreates the configured SQLite database, then starts
+Uvicorn. The container runs as a non-root `app` user.
 
 ### Run locally
 
@@ -86,7 +126,7 @@ To get a working local database, run:
 uv run python -m data.load_sample_assets
 ```
 
-This database helper deletes `data/flexcity.db` if it exists, recreates the schema from the SQLAlchemy models, 
+This database helper deletes `data/flexcity.db` if it exists, recreates the schema from the SQLAlchemy models,
 and loads the sample assets file defined in the environment variables.
 
 Then start the development server:
@@ -110,11 +150,11 @@ Once the server is running, you can access:
 ### Endpoint
 
 - `POST /request/activation`: Request activation of assets.
-    - Input: 
+    - Input:
       ```json
       {"date": <date as str>, "volume": <int>}
       ```
-    - Output: 
+    - Output:
       ```json
       {
         "assets": [
@@ -187,7 +227,8 @@ Automated and manual checks currently used in this repository:
 ## Current behavior
 
 - The API currently exposes `POST /request/activation`.
-- The request body contains `date` and `volume`: `date` must be a string of format `YYYY-MM-DD` and `volume` must be a positive integer.
+- The request body contains `date` and `volume`: `date` must be a string of format `YYYY-MM-DD` and `volume` must be a
+  positive integer.
 - The endpoint reads assets from the SQLite database in `data/flexcity.db`.
 - The helper `uv run python -m data.load_sample_assets` resets that database and loads the sample assets from
   `data/sample_assets.json`.
