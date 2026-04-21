@@ -84,6 +84,8 @@ Copy `.env.dist` to `.env` and set the environment variables:
 
 ### Run with Docker
 
+The Docker image is available on Docker Hub at <https://hub.docker.com/r/thibautst/yticxelf>.
+
 Build the image:
 
 ```bash
